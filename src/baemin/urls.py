@@ -13,9 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include #2. import에 include 라는 함수 추가함
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^partner/', include('partner.urls')), # 1. partner
     url(r'^admin/', admin.site.urls),
 ]
