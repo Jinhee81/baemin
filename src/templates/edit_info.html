@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}baemin{% endblock %}
+{% block body %}
+{% include "navbar.html"%}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div>
+        정보를 수정해주세요.
+      </div>
+      <form class="" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+      </form>
+      <a href="/partner/edit">
+        <button class="btn btn-default btn-block">
+          수정하기
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
