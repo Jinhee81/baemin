@@ -13,6 +13,7 @@ def index(request):
     if request.method == "GET":
         partner_form = PartnerForm()
         ctx.update({ "form" : partner_form })
+        print('index if get')
     elif request.method == "POST":
         partner_form = PartnerForm(request.POST)
         if partner_form.is_valid():
@@ -20,10 +21,13 @@ def index(request):
             partner.user = request.user
             partner.save()
             return redirect("/partner/")
+            print('index if post valid')
         else:
             ctx.update({ "form" : partner_form })
+            print('index if post unvalid')
 
     return render(request, "index.html", ctx)
+    # print(444)
 
 def login(request):
     ctx = {}
@@ -71,7 +75,10 @@ def edit_info(request):
 
     if request.method == "GET":
         partner_form = PartnerForm(instance=request.user.partner)
+        print('instance에불러옴')
         ctx.update({ "form" : partner_form })
+        print('폼에저장')
+
     elif request.method == "POST":
         partner_form = PartnerForm(
             request.POST,
@@ -82,7 +89,11 @@ def edit_info(request):
             partner.user = request.user
             partner.save()
             return redirect("/partner/")
+            #print(222)
         else:
             ctx.update({ "form" : partner_form })
+            #print(333)
+
 
     return render(request, "edit_info.html", ctx)
+    print(444)
