@@ -8,15 +8,13 @@
       <div>
         정보를 수정해주세요.
       </div>
-      <form class="" action="" method="post">
+      <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-      </form>
-      <a href="/partner">
         <button class="btn btn-default btn-block">
           수정하기
         </button>
-      </a>
+      </form>
     </div>
   </div>
 </div>

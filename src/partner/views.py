@@ -16,6 +16,7 @@ def index(request):
         print('index if get')
     elif request.method == "POST":
         partner_form = PartnerForm(request.POST)
+        print('if post')
         if partner_form.is_valid():
             partner = partner_form.save(commit = False)
             partner.user = request.user
