@@ -5,7 +5,8 @@ from django.contrib.auth import (
     )
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from .forms import PartnerForm
+from .forms import PartnerForm, MenuForm
+from .models import Menu
 
 # Create your views here.
 def index(request):
@@ -90,11 +91,34 @@ def edit_info(request):
             partner.user = request.user
             partner.save()
             return redirect("/partner/")
-            #print(222)
+
         else:
             ctx.update({ "form" : partner_form })
-            #print(333)
-
 
     return render(request, "edit_info.html", ctx)
-    print(444)
+
+def menu(request):
+    ctx = {}
+    menu_list = Menu.objects.filter(partner = request.user.partner)
+    ctx.update({"menu_list" : menu_list})
+    return render(request, "menu_list.html", ctx)
+
+def menu_add(request):
+    ctx = {}
+
+    if request.method == "GET":
+        form = MenuForm() #form에 menuform을 활성화시키는거
+        ctx.update({ 'form' : form }) #컨텍스트를 업데이트해준다.
+    elif request.method == "POST":
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            menu = form.save(commit = False)
+            menu.partner = request.user.partner
+            menu.save()
+            return redirect('/partner/menu/')
+        else:
+            ctx.update({ 'form' : form })
+
+        ctx.update({ 'form' : form })
+
+    return render(request, "menu_add.html", ctx)

@@ -15,3 +15,17 @@ class Partner(models.Model):
         verbose_name = "주소")
     description = models.TextField(
         verbose_name = "상세소개")
+
+class Menu(models.Model):
+    partner = models.ForeignKey(
+        Partner,
+        on_delete=models.CASCADE)
+    image = models.ImageField(
+        verbose_name = "메뉴이미지"
+    )
+    name = models.CharField(
+        max_length=50,
+        verbose_name = "메뉴명")
+    price = models.PositiveIntegerField(
+        verbose_name = "가격"
+    )

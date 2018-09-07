@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Partner
+from .models import Partner, Menu
 
 class PartnerForm(ModelForm):
     class Meta :
@@ -16,4 +16,18 @@ class PartnerForm(ModelForm):
             "contact" : forms.TextInput(attrs = {"class":"form-control"}),
             "address" : forms.TextInput(attrs = {"class":"form-control"}),
             "description" : forms.Textarea(attrs = {"class":"form-control"})
+        }
+
+class MenuForm(ModelForm):
+    class Meta :
+        model = Menu
+        fields = (
+            "image",
+            "name",
+            "price",
+        )
+        widgets = {
+            # "image" : forms.TextInput(attrs = {"class":"form-control"}),
+            "name" : forms.TextInput(attrs = {"class":"form-control"}),
+            "price" : forms.TextInput(attrs = {"class":"form-control"}),
         }
