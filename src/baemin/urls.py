@@ -17,6 +17,7 @@ from django.conf.urls import url, include #2. import에 include 라는 함수 �
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^', include('client.urls')),
     url(r'^partner/', include('partner.urls')), # 1. partner
     url(r'^admin/', admin.site.urls),
 ]

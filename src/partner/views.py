@@ -77,9 +77,7 @@ def edit_info(request):
 
     if request.method == "GET":
         partner_form = PartnerForm(instance=request.user.partner)
-        print('instance에불러옴')
         ctx.update({ "form" : partner_form })
-        print('폼에저장')
 
     elif request.method == "POST":
         partner_form = PartnerForm(
@@ -122,3 +120,33 @@ def menu_add(request):
         ctx.update({ 'form' : form })
 
     return render(request, "menu_add.html", ctx)
+
+def menu_detail(request, menu_id):
+    menu = Menu.objects.get(id = menu_id)
+    ctx = { "menu" : menu }
+    return render(request, "menu_detail.html", ctx)
+
+def menu_detail_edit(request, menu_id):
+    ctx = { "replacement" : "수정" }
+    menu = Menu.objects.get(id = menu_id)
+    if request.method == "GET":
+        form = MenuForm(instance = menu) #form에 menuform을 활성화시키는거
+        ctx.update({ 'form' : form }) #컨텍스트를 업데이트해준다.
+    elif request.method == "POST":
+        form = MenuForm(request.POST, request.FILES, instance=menu)
+        if form.is_valid():
+            menu = form.save(commit = False)
+            menu.partner = request.user.partner
+            menu.save()
+            return redirect('/partner/menu/')
+        else:
+            ctx.update({ 'form' : form })
+
+        ctx.update({ 'form' : form })
+
+    return render(request, "menu_add.html", ctx)
+
+def menu_delete(requst, menu_id):
+    menu = Menu.objects.get(id = menu_id)
+    menu.delete()
+    return redirect("/partner/menu/")

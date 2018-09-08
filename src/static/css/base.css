@@ -4,3 +4,7 @@
     padding: 15px;
     margin: auto;
 }
+#button-padding-left-right-5 {
+  padding-left: 5;
+  padding-right: 5;
+}
